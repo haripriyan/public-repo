@@ -30,6 +30,7 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+          echo NPM_TOKEN
           echo $NPM_TOKEN
         env:
           NPM_TOKEN: ${{ secrets.RN_NPM_WRITE_TOKEN }}

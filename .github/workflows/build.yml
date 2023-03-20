@@ -21,21 +21,21 @@ jobs:
     runs-on: ubuntu-latest
     environment: prod
     # Steps represent a sequence of tasks that will be executed as part of the job
+    env:
+      NPM_TOKEN: ${{ secrets.RN_NPM_WRITE_TOKEN }}
+      HAS_NPM_TOKEN: ${{ secrets.RN_NPM_WRITE_TOKEN != '' }}
+      NPM_TOKEN1: ${{ secrets.RN_NPM_WRITE_TOKEN1 }}
+      HAS_NPM_TOKEN1: ${{ secrets.RN_NPM_WRITE_TOKEN1 != '' }}
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
-        if: ${{ env.NPM_TOKEN == '' }}
+        if: ${{ env.HAS_NPM_TOKEN == 'true' }}
         run: |
-          echo "echo the secret \"RN_NPM_WRITE_TOKEN\" has not been made; echo please go to \"settings \> secrets \> actions\" to create it"
-        env:
-          NPM_TOKEN: ${{ secrets.RN_NPM_WRITE_TOKEN }}
+          echo "echo the secret \"HAS_NPM_TOKEN\" has been added"
       - name: Run a multi-line script1
-        if: ${{ env.NPM_TOKEN1 == '' }}
+        if: ${{ env.HAS_NPM_TOKEN1 == 'true' }}
         run: |
-          echo "echo the secret \"RN_NPM_WRITE_TOKEN1\" has not been made; echo please go to \"settings \> secrets \> actions\" to create it"
-        env:
-          NPM_TOKEN1: ${{ secrets.RN_NPM_WRITE_TOKEN1 }}
-
+          echo "echo the secret \"HAS_NPM_TOKEN1\" has been added"
